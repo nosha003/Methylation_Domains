@@ -1,0 +1,27 @@
+# genes
+bedtools intersect -a /home/springer/nosha003/database/Zea_mays.AGPv4.32.gene.sort.gff3 -b /home/springer/nosha003/methylation_B73v4/B73_coverage_noheader.bed -wa -wb -bed > /home/springer/nosha003/methylation_B73v4/B73_coverage_genic.tab
+
+perl /home/springer/nosha003/scripts/genic_methyl_class.pl -i /home/springer/nosha003/methylation_B73v4/B73_coverage_genic.tab -I /home/springer/nosha003/methylation_B73v4/B73_coverage.tab -o /scratch.global/nosha003/B73_coverage_genic_class.txt
+
+cut -f 2 /scratch.global/nosha003/B73_coverage_genic_class.txt | sort | uniq -c 
+
+# 536422 NA
+#  22905 RdDM
+#  43304 gene_body
+# 351489 heterochromatin
+# 247314 remaining_methylated
+# 428979 remaining_unmethylated
+
+# TEs
+bedtools intersect -a  /home/maize/shared/v4_te/B73v4_structural_filtered_newTIRID_detectMITE_noSINEdup.Feb92017.noDepreciatedSolos_sort_noctg.gff3 -b /home/springer/nosha003/methylation_B73v4/B73_coverage_noheader.bed -wa -wb -bed > /home/springer/nosha003/methylation_B73v4/B73_coverage_TE.tab
+
+perl /home/springer/nosha003/scripts/TE_methyl_class.pl -i /home/springer/nosha003/methylation_B73v4/B73_coverage_TE.tab -I /home/springer/nosha003/methylation_B73v4/B73_coverage.tab -o /scratch.global/nosha003/B73_coverage_TE_class.txt
+
+cut -f 2 /scratch.global/nosha003/B73_coverage_TE_class.txt | sort | uniq -c 
+
+#4467199 NA
+# 182488 RdDM
+# 688334 gene_body
+#9333980 heterochromatin
+# 500790 remaining_methylated
+# 225447 remaining_unmethylated
